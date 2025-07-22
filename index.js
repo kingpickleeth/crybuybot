@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const TOKEN_ADDRESS = '0x81aB049482ae02213d374A33E7F8200d93eE8BcA';
 const APE_EXPRESS_ADDRESS = '0xc80f1228E38fd8da9D37B0c197319598a4F843B3';
-const TELEGRAM_API = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`;
+const TELEGRAM_API = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendPhoto`;
 const provider = new WebSocketProvider(process.env.ALCHEMY_WS);
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
 
