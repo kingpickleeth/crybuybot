@@ -106,11 +106,3 @@ provider.on(
     await sendCryBuyAlert(to, formatted);
   }
 );
-
-// 🧪 Manual test trigger on launch
-(async () => {
-  const fakeTo = '0x000000000000000000000000000000000000DEAD';
-  const fakeAmount = 123.45;
-  console.log('🧪 Sending startup test alert...');
-  await sendCryBuyAlert(fakeTo, fakeAmount);
-})();
