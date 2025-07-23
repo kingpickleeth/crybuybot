@@ -93,7 +93,7 @@ ${centeredEmojis}
 // 🎯 Real buy detection
 provider.on(
   {
-    address: CRY_TOKEN,
+    address: TOKEN_ADDRESS,
     topics: [
       TRANSFER_TOPIC,
       `0x000000000000000000000000${APE_EXPRESS.slice(2)}`
