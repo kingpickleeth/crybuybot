@@ -2,7 +2,7 @@ const { WebSocketProvider } = require('ethers');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const TOKEN_ADDRESS = '0x81aB049482ae02213d374A33E7F8200d93eE8BcA';
-const APE_EXPRESS_ADDRESS = '0xc80f1228E38fd8da9D37B0c197319598a4F843B3';
+const APE_EXPRESS = '0xc80f1228E38fd8da9D37B0c197319598a4F843B3'.toLowerCase();
 const TELEGRAM_API = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendPhoto`;
 const provider = new WebSocketProvider(process.env.ALCHEMY_WS);
 const TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
@@ -93,11 +93,10 @@ ${centeredEmojis}
 // 🎯 Real buy detection
 provider.on(
   {
-    address: TOKEN_ADDRESS,
+    address: CRY_TOKEN,
     topics: [
       TRANSFER_TOPIC,
-      null,
-      `0x000000000000000000000000${APE_EXPRESS_ADDRESS.slice(2).toLowerCase()}`
+      `0x000000000000000000000000${APE_EXPRESS.slice(2)}`
     ]
   },
   async (log) => {
@@ -106,7 +105,7 @@ provider.on(
     const value = BigInt(log.data);
     const formatted = Number(value) / 1e18;
 
-    console.log(`🔔 Detected buy to ApeExpress: ${formatted} $CRY from ${from}`);
-    await sendCryBuyAlert(from, formatted);
+    console.log(`🛒 CRY Buy Detected → from: ${from} to: ${to}, amount: ${formatted}`);
+    await sendCryBuyAlert(to, formatted);
   }
 );
