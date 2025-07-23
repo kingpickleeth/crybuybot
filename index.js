@@ -94,12 +94,19 @@ ${centeredEmojis}
 provider.on(
   {
     address: TOKEN_ADDRESS,
-    topics: [TRANSFER_TOPIC, `0x000000000000000000000000${APE_EXPRESS_ADDRESS.slice(2).toLowerCase()}`],
+    topics: [
+      TRANSFER_TOPIC,
+      null,
+      `0x000000000000000000000000${APE_EXPRESS_ADDRESS.slice(2).toLowerCase()}`
+    ]
   },
   async (log) => {
+    const from = '0x' + log.topics[1].slice(26);
     const to = '0x' + log.topics[2].slice(26);
     const value = BigInt(log.data);
     const formatted = Number(value) / 1e18;
-    await sendCryBuyAlert(to, formatted);
+
+    console.log(`🔔 Detected buy to ApeExpress: ${formatted} $CRY from ${from}`);
+    await sendCryBuyAlert(from, formatted);
   }
 );
